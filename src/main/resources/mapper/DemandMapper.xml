@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinggu.mapper.DemandMapper">
+    <select id="getDemandList" resultType="Demand" parameterType="page">
+        SELECT * FROM zhiyi_demand ORDER BY id LIMIT #{sqlLimit},#{pageSize}
+    </select>
+    <select id="getUserDemandList" resultType="Demand" parameterType="page">
+        SELECT * FROM zhiyi_demand WHERE userName = #{userName} ORDER BY id LIMIT #{sqlLimit},#{pageSize}
+    </select>
+    <select id="queryDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE userName = #{userName}
+    </select>
+
+    <select id="queryIdDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE id = #{id}
+    </select>
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(id) FROM zhiyi_demand
+    </select>
+
+    <select id="getUserTotalCount" resultType="int" parameterType="user">
+        SELECT COUNT(id) FROM zhiyi_demand WHERE userName = #{userName}
+    </select>
+    <insert id="addDemand" parameterType="demand">
+        INSERT INTO zhiyi_demand(userName,title,content,time,place,saveImgName,savePath) VALUES (#{userName},#{title},#{content},#{time},#{place},#{saveImgName},#{savePath})
+    </insert>
+
+    <delete id="deleteIdDemand" parameterType="demand">
+        DELETE FROM zhiyi_demand WHERE id=#{id}
+    </delete>
+    <delete id="deleteUserNameDemand" parameterType="demand">
+        DELETE FROM zhiyi_demand WHERE userName=#{userName}
+    </delete>
+    <select id="searchUserNameDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE userName LIKE "%"#{userName}"%"
+    </select>
+    <select id="searchTitleDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE title LIKE "%"#{title}"%"
+    </select>
+    <select id="searchTimeDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE time LIKE "%"#{time}"%"
+    </select>
+    <select id="searchPlaceDemand" resultType="Demand" parameterType="demand">
+        SELECT * FROM zhiyi_demand WHERE place LIKE "%"#{place}"%"
+    </select>
+    <select id="">
+        /*ALTER TABLE zhiyi_demand  AUTO_INCREMENT = 1;*/
+
+    </select>
+
+    <select id="getDemandInfoList" resultType="Demand">
+        SELECT * FROM zhiyi_demand
+    </select>
+    <update id="editDemand" parameterType="demand">
+        UPDATE zhiyi_demand SET userName = #{userName}, title = #{title}, content = #{content}, time = #{time}, place = #{place},saveImgName = #{saveImgName}, savePath = #{savePath} WHERE id = #{id}
+    </update>
+
+    <update id="truncateDemandTable" >
+        TRUNCATE TABLE zhiyi_demand
+    </update>
+
+</mapper>

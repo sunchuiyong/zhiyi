@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinggu.mapper.ProductMapper">
+    <insert id="addProduct" parameterType="product">
+        INSERT INTO zhiyi_product(userName,productName,productPrice,productDetails,date,place,saveImgName1,saveImgName2,saveImgName3,savePath) VALUES (#{userName},#{productName},#{productPrice},#{productDetails},#{date},#{place},#{saveImgName1},#{saveImgName2},#{saveImgName3},#{savePath})
+    </insert>
+    <select id="getProductTotalCount" resultType="int" parameterType="user">
+        SELECT COUNT(id) FROM zhiyi_product WHERE userName = #{userName}
+    </select>
+    <select id="getUserProductList" resultType="Product" parameterType="page">
+        SELECT * FROM zhiyi_product WHERE userName = #{userName} ORDER BY id LIMIT #{sqlLimit},#{pageSize}
+    </select>
+    <select id="queryUserProduct" resultType="Product" parameterType="product">
+        SELECT * FROM zhiyi_product WHERE userName = #{userName}
+    </select>
+    <select id="queryIdProduct" resultType="Product" parameterType="product">
+        SELECT * FROM zhiyi_product WHERE id = #{id}
+    </select>
+    <delete id="deleteIdProduct" parameterType="product">
+        DELETE FROM zhiyi_product WHERE id=#{id}
+    </delete>
+    <update id="editProduct" parameterType="product">
+        UPDATE zhiyi_product SET userName = #{userName}, productName = #{productName}, productPrice = #{productPrice},productDetails = #{productDetails},date = #{date},place = #{place},saveImgName1 = #{saveImgName1},saveImgName2 = #{saveImgName2},saveImgName3 = #{saveImgName3},savePath = #{savePath} WHERE id = #{id}
+    </update>
+
+    <select id="getProductList" resultType="Product">
+        SELECT * FROM zhiyi_product
+    </select>
+    <select id="searchProductInfo" resultType="Product" parameterType="product">
+        SELECT * FROM zhiyi_product WHERE userName LIKE "%"#{userName}"%" OR productName LIKE "%"#{productName}"%" OR place LIKE "%"#{place}"%"
+    </select>
+    <select id="searchProductDate" resultType="Product" parameterType="product">
+        SELECT * FROM zhiyi_product WHERE date LIKE "%"#{date}"%"
+    </select>
+
+    <update id="truncateProductTable" >
+        TRUNCATE TABLE zhiyi_product
+    </update>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinggu.mapper.UserMapper">
+    <select id="login" resultType="user" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE userName = #{userName} AND pwd = #{pwd}
+    </select>
+    <select id="queryUser" resultType="user" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE userName = #{userName}
+    </select>
+    <insert id="register" parameterType="user">
+        INSERT INTO zhiyi_user(userName,pwd,roleId,date) VALUES (#{userName},#{pwd},#{roleId},#{date})
+    </insert>
+    <select id="queryInformation" resultType="information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE userName = #{userName}
+    </select>
+    <select id="queryNameInformation" resultType="information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE name = #{name}
+    </select>
+    <update id="editInformation" parameterType="information">
+        UPDATE zhiyi_information SET name = #{name}, sex = #{sex},birthday = #{birthday},place = #{place},phone = #{phone},WeChat = #{WeChat},email = #{email} WHERE userName = #{userName}
+    </update>
+    <insert id="addInformation" parameterType="information">
+        INSERT INTO zhiyi_information(userName,name,sex,birthday,place,phone,WeChat,email) VALUES (#{userName},#{name},#{sex},#{birthday},#{place},#{phone},#{WeChat},#{email})
+    </insert>
+    <delete id="userDelete" parameterType="user">
+        DELETE FROM zhiyi_user WHERE userName = #{userName}
+    </delete>
+    <delete id="informationDelete" parameterType="information">
+        DELETE FROM zhiyi_information WHERE userName = #{userName}
+    </delete>
+
+    <select id="getUserList" resultType="User">
+        SELECT * FROM zhiyi_user
+    </select>
+    <select id="query_User" resultType="User" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE id = #{id}
+    </select>
+    <update id="editUser" parameterType="user">
+        UPDATE zhiyi_user SET userName = #{userName}, pwd = #{pwd},roleId = #{roleId},date = #{date} WHERE id = #{id}
+    </update>
+    <select id="searchUserName" resultType="User" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE userName LIKE "%"#{userName}"%"
+    </select>
+    <select id="searchRoleId" resultType="User" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE roleId LIKE "%"#{roleId}"%"
+    </select>
+    <select id="searchDate" resultType="User" parameterType="user">
+        SELECT * FROM zhiyi_user WHERE date LIKE "%"#{date}"%"
+    </select>
+    <delete id="deleteUser" parameterType="user">
+        DELETE FROM zhiyi_user WHERE id = #{id}
+    </delete>
+
+    <select id="getUserInformationList" resultType="Information">
+        SELECT * FROM zhiyi_information
+    </select>
+    <select id="query_UserInformation" resultType="Information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE id = #{id}
+    </select>
+    <update id="editUserInformation" parameterType="information">
+        UPDATE zhiyi_information SET userName = #{userName}, name = #{name}, sex = #{sex},birthday = #{birthday},place = #{place},phone = #{phone},WeChat = #{WeChat},email = #{email} WHERE id = #{id}
+    </update>
+    <select id="searchInfo" resultType="Information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE userName LIKE "%"#{userName}"%" OR name LIKE "%"#{name}"%" OR sex LIKE "%"#{sex}"%" OR place LIKE "%"#{place}"%"
+    </select>
+    <select id="searchBirthday" resultType="Information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE birthday LIKE "%"#{birthday}"%"
+    </select>
+    <select id="searchPhone" resultType="Information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE phone LIKE "%"#{phone}"%"
+    </select>
+    <select id="searchWeChat" resultType="Information" parameterType="information">
+        SELECT * FROM zhiyi_information WHERE WeChat LIKE "%"#{WeChat}"%"
+    </select>
+    <delete id="deleteUserInformation" parameterType="information">
+        DELETE FROM zhiyi_information WHERE id = #{id}
+    </delete>
+
+    <update id="truncateUserTable" >
+        TRUNCATE TABLE zhiyi_user
+    </update>
+    <update id="truncateInformationTable" >
+        TRUNCATE TABLE zhiyi_information
+    </update>
+</mapper>

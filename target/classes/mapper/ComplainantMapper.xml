@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinggu.mapper.ComplainantMapper">
+    <insert id="addComplainant" parameterType="complainant">
+        INSERT INTO zhiyi_complainant(complainant,respondent,content,data,evidence1,evidence2,evidence3,savePath) VALUES (#{complainant},#{respondent},#{content},#{data},#{evidence1},#{evidence2},#{evidence3},#{savePath})
+    </insert>
+    <select id="getRespondentTotalCount" resultType="int" parameterType="complainant">
+        SELECT COUNT(id) FROM zhiyi_complainant WHERE respondent = #{respondent}
+    </select>
+    <select id="getRespondentComplainantList" resultType="Complainant" parameterType="page">
+        SELECT * FROM zhiyi_complainant WHERE respondent = #{respondent} ORDER BY id LIMIT #{sqlLimit},#{pageSize}
+    </select>
+    <select id="queryRespondentComplainant" resultType="Complainant" parameterType="complainant">
+        SELECT * FROM zhiyi_complainant WHERE respondent = #{respondent}
+    </select>
+
+    <select id="getComplainantList" resultType="Complainant">
+        SELECT * FROM zhiyi_complainant
+    </select>
+    <select id="queryIdComplainant" resultType="Complainant" parameterType="complainant">
+        SELECT * FROM zhiyi_complainant  WHERE id = #{id}
+    </select>
+    <update id="editComplainant" parameterType="complainant">
+        UPDATE zhiyi_complainant SET complainant = #{complainant}, respondent = #{respondent}, content = #{content}, data = #{data}, evidence1 = #{evidence1}, evidence2 = #{evidence2}, evidence3 = #{evidence3}, savePath = #{savePath} WHERE id = #{id}
+    </update>
+    <select id="searchComplainantinfo" resultType="Complainant" parameterType="complainant">
+        SELECT * FROM zhiyi_complainant WHERE complainant LIKE "%"#{complainant}"%" OR respondent LIKE "%"#{respondent}"%"
+    </select>
+    <select id="searchDateComplainant" resultType="Complainant" parameterType="complainant">
+        SELECT * FROM zhiyi_complainant WHERE data LIKE "%"#{data}"%"
+    </select>
+    <delete id="deleteIdComplainant" parameterType="complainant">
+        DELETE FROM zhiyi_complainant WHERE id=#{id}
+    </delete>
+
+    <update id="truncateComplainantTable" >
+        TRUNCATE TABLE zhiyi_complainant
+    </update>
+</mapper>

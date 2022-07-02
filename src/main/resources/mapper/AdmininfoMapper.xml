@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinggu.mapper.AdmininfoMapper">
+    <select id="query" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE adminName = #{adminName}
+    </select>
+    <select id="getAdmininfoList" resultType="Admininfo">
+        SELECT * FROM zhiyi_admininfo
+    </select>
+    <insert id="addAdmininfo" parameterType="admininfo">
+        INSERT INTO zhiyi_admininfo(adminName,name,sex,birthday,phone,place) VALUES (#{adminName},#{name},#{sex},#{birthday},#{phone},#{place})
+    </insert>
+    <select id="queryAdmininfo" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE id = #{id}
+    </select>
+    <update id="editAdmininfo" parameterType="admininfo">
+        UPDATE zhiyi_admininfo SET adminName = #{adminName}, name = #{name}, sex = #{sex}, birthday = #{birthday}, phone = #{phone}, place = #{place} WHERE id = #{id}
+    </update>
+    <select id="searchAdminName" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE adminName LIKE "%"#{adminName}"%"
+    </select>
+    <select id="searchName" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE name LIKE "%"#{name}"%"
+    </select>
+    <select id="searchSex" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE sex LIKE "%"#{sex}"%"
+    </select>
+    <select id="searchBirthday" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE birthday LIKE "%"#{birthday}"%"
+    </select>
+    <select id="searchPhone" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE phone LIKE "%"#{phone}"%"
+    </select>
+    <select id="searchPlace" resultType="Admininfo" parameterType="admininfo">
+        SELECT * FROM zhiyi_admininfo WHERE place LIKE "%"#{place}"%"
+    </select>
+    <delete id="deleteAdmininfo" parameterType="admininfo">
+        DELETE FROM zhiyi_admininfo WHERE id=#{id}
+    </delete>
+
+    <update id="truncateAdmininfoTable" >
+        TRUNCATE TABLE zhiyi_admininfo
+    </update>
+
+</mapper>
